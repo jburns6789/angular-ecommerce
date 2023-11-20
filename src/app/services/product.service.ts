@@ -12,6 +12,7 @@ import { ProductCategory } from '../common/product-category';
 
 export class ProductService {
   
+  
   private baseUrl = 'http://localhost:8080/api/products'; //default return is 20 items changed to 100 items returned below
   
   //private baseUrl = 'http://localhost:8080/api/products?size=100';
@@ -19,6 +20,15 @@ export class ProductService {
   private categoryUrl = 'http://localhost:8080/api/product-category'
 
   constructor(private httpClient: HttpClient) { }
+
+  getProduct(theProductId: number): Observable<Product> {
+    
+    // need to buidl the URL based on product id
+    const productUrl = `${this.baseUrl}/${theProductId}`;
+
+    return this.httpClient.get<Product>(productUrl);
+
+  }
 
   getProductList(theCategoryId: number): Observable<Product[]> {
 
