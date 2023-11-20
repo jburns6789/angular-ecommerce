@@ -1,0 +1,12 @@
+<div class="form-header">
+
+    <!--Template reference varaible-->
+    <input #myInput type="text"  
+            placeholder="Search for products ..."
+            class="au-input au-input-xl" 
+            (keyup.enter)="doSearch(myInput.value)" /> <!--listen for the enter key, call method in angualr code, userInput text-->
+
+    <button (click)="doSearch(myInput.value)" class="au-btn-submit" type="submit">
+        Search
+    </button>
+<div>

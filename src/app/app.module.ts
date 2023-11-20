@@ -9,12 +9,14 @@ import { ProductService } from './services/product.service'; //needs to be added
 
 import { Routes, RouterModule} from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 // define and configure routes
 
 const routes: Routes =[
     //order is important most specific -> most general
-    
+
+      {path: 'search/:keyword', component: ProductListComponent},
       {path: 'category/:id', component: ProductListComponent},
       {path: 'category', component: ProductListComponent},
       {path: 'products', component: ProductListComponent},
@@ -27,7 +29,8 @@ const routes: Routes =[
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
