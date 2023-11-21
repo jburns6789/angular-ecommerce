@@ -12,6 +12,8 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // define and configure routes
 
 const routes: Routes =[
@@ -38,7 +40,8 @@ const routes: Routes =[
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
     BrowserModule,
-    HttpClientModule //needs to be added
+    HttpClientModule, //needs to be added for api support
+    NgbModule // necessary to support ng bootstrap, exposes the exported delclarations
   ],
   providers: [ProductService], // add reference to product service
   bootstrap: [AppComponent]
