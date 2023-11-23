@@ -15,12 +15,15 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // define and configure routes
 
 const routes: Routes =[
     //order is important most specific -> most general
 
+      {path: 'checkout', component: CheckoutComponent},
       {path: 'cart-details', component: CartDetailsComponent},
       {path: 'products/:id', component: ProductDetailsComponent},
       {path: 'search/:keyword', component: ProductListComponent},
@@ -40,13 +43,15 @@ const routes: Routes =[
     SearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
     BrowserModule,
     HttpClientModule, //needs to be added for api support
-    NgbModule // necessary to support ng bootstrap, exposes the exported delclarations
+    NgbModule, // necessary to support ng bootstrap, exposes the exported delclarations
+    ReactiveFormsModule
   ],
   providers: [ProductService], // add reference to product service
   bootstrap: [AppComponent]
