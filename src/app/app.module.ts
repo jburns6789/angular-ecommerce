@@ -17,11 +17,30 @@ import { CartStatusComponent } from './components/cart-status/cart-status.compon
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
+
+import {
+  OktaAuthModule,
+  OktaCallbackComponent,
+  OKTA_CONFIG
+} from '@okta/okta-angular';
+
+import { OktaAuth } from '@okta/okta-auth-js';
+
+import myAppConfig from './config/my-app-config';
+
+const oktaConfig = myAppConfig.oidc;
+
+const oktaAuth = new OktaAuth(oktaConfig);
 
 // define and configure routes
 
 const routes: Routes =[
     //order is important most specific -> most general
+
+      {path: 'login/callback', component: OktaCallbackComponent},
+      {path: 'login', component: LoginComponent},
 
       {path: 'checkout', component: CheckoutComponent},
       {path: 'cart-details', component: CartDetailsComponent},
@@ -44,16 +63,19 @@ const routes: Routes =[
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginComponent,
+    LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
     BrowserModule,
     HttpClientModule, //needs to be added for api support
     NgbModule, // necessary to support ng bootstrap, exposes the exported delclarations
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OktaAuthModule
   ],
-  providers: [ProductService], // add reference to product service
+  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }}], // add reference to product service
   bootstrap: [AppComponent]
 })
 export class AppModule { }
