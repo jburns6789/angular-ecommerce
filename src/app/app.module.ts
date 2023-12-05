@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 
-import { HttpClientModule } from '@angular/common/http'; // part of angular framework needs to be added
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // part of angular framework needs to be added
 import { ProductService } from './services/product.service'; //needs to be added
 
 import { Routes, RouterModule, Router} from '@angular/router';
@@ -31,6 +31,8 @@ import { OktaAuth } from '@okta/okta-auth-js';
 
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const oktaConfig = myAppConfig.oidc;
 
@@ -48,6 +50,11 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 
 const routes: Routes =[
     //order is important most specific -> most general
+
+      {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard],
+                      data: {onAuthRequired: sendToLoginPage} },
+
+
       {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard],
                       data: {onAuthRequired: sendToLoginPage} },
 
@@ -78,7 +85,8 @@ const routes: Routes =[
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    MembersPageComponent
+    MembersPageComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
@@ -88,7 +96,8 @@ const routes: Routes =[
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }}], // add reference to product service
-  bootstrap: [AppComponent]
+  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }}, 
+              {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}], // add reference to product service
+                bootstrap: [AppComponent]
 })
 export class AppModule { }
