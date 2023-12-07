@@ -153,7 +153,7 @@ export class CheckoutComponent implements OnInit {
   get creditCardType() { return this.checkoutFormGroup.get('creditCard.cardType'); }
   get creditCardNameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
   get creditCardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
-  get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.seurityCode'); }
+  get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
 
 
   copyShippingAddressToBillingAddress(event: Event) {
@@ -178,14 +178,15 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     console.log("Handling the submit button");
 
-    if (this.checkoutFormGroup?.invalid) {
+    if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
 
     //console.log(this.checkoutFormGroup.get('customer').value);
     //console.log("The email address is " + this.checkoutFormGroup.get('customer').value.email);
-    //console.log("The shipping address country is " + this.checkoutFormGroup?.get('shipppingAddress').value.country.name);
-    //console.log("The shipping address state is " + this.checkoutFormGroup?.get('shipppingAddress').value.state.name);
+    //console.log("The shipping address country is " + this.checkoutFormGroup.get('shipppingAddress').value.country.name);
+    //console.log("The shipping address state is " + this.checkoutFormGroup.get('shipppingAddress').value.state.name);
  
     // set up order
     let order = new Order();
