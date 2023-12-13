@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  luv2shopApiUrl: "https://localhost:8443/api"
 };
