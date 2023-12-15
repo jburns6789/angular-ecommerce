@@ -7,7 +7,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // part of angular framework needs to be added
 import { ProductService } from './services/product.service'; //needs to be added
 
-import { Routes, RouterModule, Router} from '@angular/router';
+import { Routes, Module, } from '@angular/';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -42,10 +42,10 @@ const oktaAuth = new OktaAuth(oktaConfig);
 
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   // Use injector to access any service available withinn your application
-  const router = injector.get(Router);
+  const  = injector.get();
 
   // Redirect the user to your custom login page
-  router.navigate(['/login']);
+  .navigate(['/login']);
 }
 
 // define and configure routes
@@ -92,7 +92,7 @@ const routes: Routes =[
     ServiceOfferingListComponent
   ],
   imports: [
-    RouterModule.forRoot(routes), // routes from the const routes goes here
+    Module.forRoot(routes), // routes from the const routes goes here
     BrowserModule,
     HttpClientModule, //needs to be added for api support
     NgbModule, // necessary to support ng bootstrap, exposes the exported delclarations
