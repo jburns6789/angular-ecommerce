@@ -33,6 +33,8 @@ import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { ServiceOfferingService } from './services/service-offering.service';
+import { ServiceOfferingListComponent } from './components/service-offering-list/service-offering-list.component';
 
 const oktaConfig = myAppConfig.oidc;
 
@@ -40,7 +42,7 @@ const oktaAuth = new OktaAuth(oktaConfig);
 
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   // Use injector to access any service available withinn your application
-  const router = injector.get(Router);
+  const router  = injector.get(Router);
 
   // Redirect the user to your custom login page
   router.navigate(['/login']);
@@ -86,7 +88,8 @@ const routes: Routes =[
     LoginComponent,
     LoginStatusComponent,
     MembersPageComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    ServiceOfferingListComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
@@ -96,7 +99,7 @@ const routes: Routes =[
     ReactiveFormsModule,
     OktaAuthModule
   ],
-  providers: [ProductService, { provide: OKTA_CONFIG, useValue: { oktaAuth }}, 
+  providers: [ProductService, ServiceOfferingService, { provide: OKTA_CONFIG, useValue: { oktaAuth }}, 
               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}], // add reference to product service
                 bootstrap: [AppComponent]
 })
