@@ -18,7 +18,7 @@
                         
                          <input type="radio" name="selectUpdate" id="isCheckBox" (change)="enableUpdate($event)">Update Quantity
                         
-                        <button type="button" class="btn btn-info btn-sm" value="{{ tempOrderHistory.orderTrackingNumber }}" (click)="deleteOrder(this.orderTrackingNumber)">Delete</button>
+                        <button type="button" class="btn btn-info btn-sm" value="{{ tempOrderHistory.orderTrackingNumber }}" (click)="handleOrderDelete(tempOrderHistory.orderTrackingNumber)">Delete</button>
 
                         <td>
                             {{ tempOrderHistory.orderTrackingNumber }}

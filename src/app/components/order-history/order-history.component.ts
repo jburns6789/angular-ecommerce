@@ -76,24 +76,12 @@ export class OrderHistoryComponent implements OnInit {
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
     // bring the updated order history back
-    this.orderHistoryService.updateOrderQuantity(theEmail, guid, quantity).subscribe(
-      data => {
-        this.orderHistoryList = data._embedded.orders;
-
-      }
-    );
+    this.orderHistoryService.updateOrderQuantity(theEmail, guid, quantity).subscribe(response => {});
   }
 
   handleOrderDelete(orderTrackingNumber: any) {
-    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
-
     // bring the deleted order history back
-    this.orderHistoryService.deleteOrder(theEmail, orderTrackingNumber).subscribe(
-      data => {
-        this.orderHistoryList = data._embedded.orders;
-
-      }
-    );
+    this.orderHistoryService.deleteOrder(orderTrackingNumber).subscribe(response => {});
   }
 
 }

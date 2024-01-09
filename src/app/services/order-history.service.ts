@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderHistory } from '../common/order-history';
@@ -22,16 +22,23 @@ export class OrderHistoryService {
     return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
 
-  updateOrderQuantity(theEmail: string, orderTrackingNumber: any, quantity: any) {
-    const orderUpdateUrl = `${this.orderUrl}/updateOrder?orderId=${orderTrackingNumber}&email=${theEmail}&quantity=${quantity}`;
+  updateOrderQuantity(theEmail: string, orderTrackingNumber: any, quantity: number) {
 
-    return this.httpClient.get<GetResponseOrderHistory>(orderUpdateUrl);
+
+    const orderUpdateUrl = `${this.orderUrl}/updateOrder/${orderTrackingNumber}?quantity=${quantity}`;
+    console.log(orderUpdateUrl, quantity);
+
+    return this.httpClient.put(orderUpdateUrl, {});
   }
 
-  deleteOrder(theEmail: string, orderTrackingNumber: any) {
-    const orderDeleteUrl = `${this.orderUrl}/deleteOrder?orderId=${orderTrackingNumber}&email=${theEmail}`;
+  deleteOrder(orderTrackingNumber: any) {
 
-    return this.httpClient.get<GetResponseOrderHistory>(orderDeleteUrl);
+    console.log("delete order method");
+    const orderDeleteUrl = `${this.orderUrl}/deleteOrder/${orderTrackingNumber}`;
+    console.log(orderDeleteUrl);
+    return this.httpClient.delete(orderDeleteUrl);
+
+
   }
 
 }
