@@ -29,10 +29,12 @@
                         <td>
                             {{ tempOrderHistory.totalQuantity }}  
 
-                            <input class="update_Quantity" style="display:none" type="number" id="updatedQuantity" min="0" max="10" placeholder="Select Quantity"/>
+                            <div *ngIf="editEnabled">
+
+                            <input class="update_Quantity"  type="number" id="updatedQuantity" min="0" max="10" placeholder="Select Quantity" (change)="onQuantityChange($event)" value="{{updatedQuantity}}"/>
                            
-                            <button style="display:none" type="button" id="updateQuantityButton" class="btn btn-info btn-sm update_Quantity"(click)="updateQuantity($event)" >Update</button> 
-                            
+                            <button  type="button" id="updateQuantityButton" class="btn btn-info btn-sm update_Quantity"(click)="updateQuantity(tempOrderHistory.orderTrackingNumber)" >Update</button> 
+                        </div>
                         </td>
                         <td>
                             {{ tempOrderHistory.dateCreated | date: 'medium' }}

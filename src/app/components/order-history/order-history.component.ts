@@ -14,8 +14,9 @@ export class OrderHistoryComponent implements OnInit {
 
   orderHistoryList: OrderHistory[] = [];
   storage: Storage = sessionStorage;
+  updatedQuantity: string = "";
 
-  editEnabled: any = "";
+  editEnabled: boolean = false;
 
   constructor(private orderHistoryService: OrderHistoryService) { }
 
@@ -48,6 +49,9 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   enableUpdate(event: any) {
+
+    this.editEnabled = true;
+    /** 
     let elements: any = document.querySelectorAll(".update_Quantity")
     for (let i = 0; i < elements.length; i++) {
       elements[i].style.display = "none"
@@ -57,14 +61,18 @@ export class OrderHistoryComponent implements OnInit {
     if (quantityField.children[1].style.display == "none") {
       quantityField.children[1].style.display = "block"
       quantityField.children[0].style.display = "block"
-    }
+    }**/
 
   }
 
-  updateQuantity(event: any) {
+  onQuantityChange(event:any){
+    this.updatedQuantity = event.target.value;
+  }
 
-    let guid = event.target.parentElement.parentElement.children[2].innerText
-    let Quantity = event.target.parentElement.children[0].value
+  updateQuantity(guid: string) {
+
+    //let guid = event.target.parentElement.parentElement.children[2].innerText
+    let Quantity = Number(this.updatedQuantity) ?? 0;
     console.log(guid)
     console.log(Quantity)
 
@@ -76,12 +84,25 @@ export class OrderHistoryComponent implements OnInit {
     const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
 
     // bring the updated order history back
-    this.orderHistoryService.updateOrderQuantity(theEmail, guid, quantity).subscribe(response => {});
+    this.orderHistoryService.updateOrderQuantity(theEmail, guid, quantity).subscribe(response => {
+      console.log('Update order response', response);
+
+      this.editEnabled = false;
+      this.updatedQuantity = "";
+
+      this.orderHistoryList = this.orderHistoryList.map(obj => obj.orderTrackingNumber  === guid ? {...obj, totalQuantity: quantity}: obj);
+
+    });
   }
 
-  handleOrderDelete(orderTrackingNumber: any) {
+  handleOrderDelete(orderTrackingNumber: string) {
     // bring the deleted order history back
-    this.orderHistoryService.deleteOrder(orderTrackingNumber).subscribe(response => {});
+    this.orderHistoryService.deleteOrder(orderTrackingNumber).subscribe(response => {
+      console.log('Delete order response', response);
+
+      this.orderHistoryList = this.orderHistoryList.filter(obj => obj.orderTrackingNumber  !== orderTrackingNumber);
+
+    });
   }
 
 }
