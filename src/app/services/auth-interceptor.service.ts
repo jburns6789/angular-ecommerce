@@ -35,7 +35,17 @@ export class AuthInterceptorService implements HttpInterceptor {
       });
 
     }
+    
 
+
+     
+
+    //attemping cors
+    request = request.clone({
+      setHeaders: {
+        'Access-Control-Allow-Origins' : '*' 
+      }
+    });
 
     return await lastValueFrom(next.handle(request));
   }

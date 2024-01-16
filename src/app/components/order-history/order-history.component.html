@@ -5,14 +5,21 @@
 
             <div *ngIf="orderHistoryList.length > 0">
                 <table class="table table-bordered">
+
                     <tr>
+                        <th width="20%"></th>
                         <th width="20%">Order Tracking Number</th>
                         <th width="10%">Total Price</th>
                         <th width="10%">Total Quantity</th>
                         <th width="10%">Date</th>
-
                     </tr>
+
                     <tr *ngFor="let tempOrderHistory of orderHistoryList">
+                        
+                         <input type="radio" name="selectUpdate" id="isCheckBox" (change)="enableUpdate($event)">Update Quantity
+                        
+                        <button type="button" class="btn btn-info btn-sm" value="{{ tempOrderHistory.orderTrackingNumber }}" (click)="handleOrderDelete(tempOrderHistory.orderTrackingNumber)">Delete</button>
+
                         <td>
                             {{ tempOrderHistory.orderTrackingNumber }}
                         </td>
@@ -20,55 +27,23 @@
                             {{ tempOrderHistory.totalPrice | currency: 'USD' }}
                         </td>
                         <td>
-                            {{ tempOrderHistory.totalQuantity }}
+                            {{ tempOrderHistory.totalQuantity }}  
+
+                            <div *ngIf="editEnabled">
+
+                            <input class="update_Quantity"  type="number" id="updatedQuantity" min="0" max="10" placeholder="Select Quantity" (change)="onQuantityChange($event)" value="{{updatedQuantity}}"/>
+                           
+                            <button  type="button" id="updateQuantityButton" class="btn btn-info btn-sm update_Quantity"(click)="updateQuantity(tempOrderHistory.orderTrackingNumber)" >Update</button> 
+                        </div>
                         </td>
                         <td>
                             {{ tempOrderHistory.dateCreated | date: 'medium' }}
                         </td>
-
+                        
                     </tr>
+                    
                 </table>
 
-               
-
-                <div class="col-md-5">
-
-                    <button type="button" class="btn btn-info mx-1">Modify Order</button> 
-                    <button type="button" class="btn btn-info">Delete Order</button>  
-
-                </div>
-
-
-                <div class="col-md-5">
-                    <div class="input-space">
-                        <input formControlName="orderNumberTf" type="text">
-                    </div>
-                </div>    
-                
-                <div class="form-header">
-
-                    <!--Template reference varaible-->
-                <!--        <input #myInput type="text"  
-                            placeholder="Enter Order Number Here ..."
-                            class="au-input au-input-xl" 
-                            (keyup.enter)="modifyOrder(myInput.value)" /> 
-                            (keyup.enter)="deleteCompletedOrder(myInput.value)" /> 
-                
-                    <button (click)="modifyOrder(myInput.value)" class="au-btn-submit" type="submit">
-                        Modify
-                    </button>
-
-                    <button (click)="deleteCompletedOrder(myInput.value)" class="au-btn-submit" type="submit">
-                        Delete
-                    </button>  
-                --> 
-
-                <div>
-                
-            
-                
-
-               
             </div>
     
             <!-- if order history is empty than display a message-->
@@ -79,3 +54,4 @@
         </div>
     </div>
 </div>
+

@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  luv2shopApiUrl: "https://localhost:8443/api"
+  production: true,
+
+  luv2shopApiUrl: "http://localhost:8080/spring-boot-ecommerce/api/"
+
 };
 
 /*
