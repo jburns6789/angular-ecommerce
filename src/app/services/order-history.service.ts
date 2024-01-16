@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderHistory } from '../common/order-history';
@@ -21,6 +21,26 @@ export class OrderHistoryService {
 
     return this.httpClient.get<GetResponseOrderHistory>(orderHistoryUrl);
   }
+
+  updateOrderQuantity(theEmail: string, orderTrackingNumber: any, quantity: number) {
+
+
+    const orderUpdateUrl = `${this.orderUrl}/updateOrder/${orderTrackingNumber}?quantity=${quantity}`;
+    console.log(orderUpdateUrl, quantity);
+
+    return this.httpClient.put(orderUpdateUrl, {});
+  }
+
+  deleteOrder(orderTrackingNumber: any) {
+
+    console.log("delete order method");
+    const orderDeleteUrl = `${this.orderUrl}/deleteOrder/${orderTrackingNumber}`;
+    console.log(orderDeleteUrl);
+    return this.httpClient.delete(orderDeleteUrl);
+
+
+  }
+
 }
 
 interface GetResponseOrderHistory {
@@ -29,3 +49,4 @@ interface GetResponseOrderHistory {
   }
 
 }
+

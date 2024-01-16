@@ -35,6 +35,7 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ServiceOfferingService } from './services/service-offering.service';
 import { ServiceOfferingListComponent } from './components/service-offering-list/service-offering-list.component';
+//import { WorkAroundLoginComponent } from './work-around-login/work-around-login.component';
 
 const oktaConfig = myAppConfig.oidc;
 
@@ -89,7 +90,8 @@ const routes: Routes =[
     LoginStatusComponent,
     MembersPageComponent,
     OrderHistoryComponent,
-    ServiceOfferingListComponent
+    ServiceOfferingListComponent,
+   //WorkAroundLoginComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes from the const routes goes here
