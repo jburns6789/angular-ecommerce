@@ -7,7 +7,10 @@ import { OrderHistoryService } from 'src/app/services/order-history.service';
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css']
 })
+
 export class OrderHistoryComponent implements OnInit {
+  [x: string]: any;
+
 
   orderHistoryList: OrderHistory[] = [];
   storage: Storage = sessionStorage;
