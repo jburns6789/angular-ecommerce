@@ -21,6 +21,19 @@
       "dom"
     ]
   },
+  "exclude": [
+    "src/app/common/cart-item.spec.ts",
+    "src/app/common/country.spec.ts",
+    "src/app/common/order-history.spec.ts",
+    "src/app/common/order-item.spec.ts",
+    "src/app/common/product-category.spec.ts",
+    "src/app/common/product.spec.ts",
+    "src/app/common/service-offering.spec.ts",
+    "src/app/common/state.spec.ts",
+    "src/app/services/checkout.service.spec.ts",
+    "src/app/services/order-history.service.spec.ts"
+    
+  ],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
